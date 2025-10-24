@@ -45,13 +45,13 @@
             this.chartEstadisticas.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chartEstadisticas.Legends.Add(legend1);
-            this.chartEstadisticas.Location = new System.Drawing.Point(203, 40);
+            this.chartEstadisticas.Location = new System.Drawing.Point(53, 40);
             this.chartEstadisticas.Name = "chartEstadisticas";
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.chartEstadisticas.Series.Add(series1);
-            this.chartEstadisticas.Size = new System.Drawing.Size(300, 300);
+            this.chartEstadisticas.Size = new System.Drawing.Size(664, 300);
             this.chartEstadisticas.TabIndex = 0;
             this.chartEstadisticas.Text = "chart1";
             // 

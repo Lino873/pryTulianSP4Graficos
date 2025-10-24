@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.OleDb;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Drawing;
 
 
 namespace pryTulianSP4Graficos
@@ -15,16 +16,16 @@ namespace pryTulianSP4Graficos
     {
 
         OleDbConnection miconexion;
-        public string mensaje = "";
+        OleDbCommand comando;
 
-        
-        public void ConectarBaseAcces(System.Windows.Forms.ToolStripLabel lblmensaje )
+
+        public void ConectarBaseAcces(ToolStripLabel lblmensaje )
         {
             try
             {
 
-                miconexion = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=..\\..\\BaseDatos\\controltransporte.accdb");
-                miconexion.Open();
+                miconexion = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=..\\..\\BaseDatos\\control_transporte.accdb");
+                
 
                 lblmensaje.Text = "Conexiòn acces exitosa";
                 lblmensaje.BackColor = System.Drawing.Color.LightGreen;
@@ -38,26 +39,55 @@ namespace pryTulianSP4Graficos
         }
         public void CargarGrafico(Chart chart)
         {
-            string consulta = "SELECT Camion, SUM(Kilometraje) AS TotalKm FROM Viajes GROUP BY Camion";
-            OleDbCommand comando = new OleDbCommand(consulta, miconexion);
-            miconexion.Open();
-            OleDbDataReader lector = comando.ExecuteReader();
-            chartEstadisticas.Series.Clear();
+            Series ser = new Series("KM recorridos por cada camión");
+            ser.ChartType = SeriesChartType.Column;
 
-            while (lector.Read())
+
+
+            try
             {
-                string camion = lector["Camion"].ToString();
-                double km = Convert.ToDouble(lector["TotalKm"]);
+                miconexion.Open();
 
-                Series serie = new Series(camion);
-                serie.Points.AddXY(camion, km);
-                serie.ChartType = SeriesChartType.Column;
-                serie.IsValueShownAsLabel = true;
+                
+                string consulta = "SELECT Camión, Kilómetros FROM transporte";
+                comando = new OleDbCommand(consulta, miconexion);
 
-                chartEstadisticas.Series.Add(serie);
+                OleDbDataReader reader = comando.ExecuteReader();
+                Color[] colores =
+                    {
+                Color.Red, Color.Orange, Color.Green, Color.Blue,
+                Color.Purple, Color.Cyan, Color.Magenta, Color.Gold,
+                Color.Brown, Color.DarkSlateGray
+               };
+                int i = 0;
+                while (reader.Read())
+                {
+                    
+                    string camion = reader["Camión"].ToString();
+                    decimal km = Convert.ToDecimal(reader["Kilómetros"]);
+
+                    int puntoIndex = ser.Points.AddXY(camion, km);
+
+
+                    ser.Points[puntoIndex].Color = colores[i % colores.Length];
+                    i++;
+                }
+
+                chart.Series.Add(ser);
+
+                
+                chart.ChartAreas[0].AxisX.Interval = 1;
+                chart.ChartAreas[0].AxisX.Title = "Camiones";
+                chart.ChartAreas[0].AxisY.Title = "Kilómetros recorridos";
+                chart.ChartAreas[0].AxisY.Minimum = 0;
+                chart.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.LightGray;
+                chart.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
 
-            miconexion.Close();
 
 
         }

@@ -23,8 +23,7 @@ namespace pryTulianSP4Graficos
         {
             ConexionClase conexion = new ConexionClase();
             conexion.ConectarBaseAcces(lblestadoonexion);
-            GraficoKilometraje grafico = new GraficoKilometraje();
-            grafico.CargarGrafico(chartEstadisticas);
+            conexion.CargarGrafico(chartEstadisticas);
 
         }
 
