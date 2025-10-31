@@ -37,15 +37,17 @@ namespace pryTulianSP4Graficos
                 lblmensaje.BackColor = System.Drawing.Color.DarkRed;
             }
         }
-        public void CargarGrafico(Chart chart)
+        public void Kmrecorridoporcamion(Chart chart)
         {
-            Series ser = new Series("KM recorridos por cada camión");
+            
+            Series ser = new Series("");
             ser.ChartType = SeriesChartType.Column;
 
 
 
             try
             {
+                miconexion = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=..\\..\\BaseDatos\\control_transporte.accdb");
                 miconexion.Open();
 
                 
@@ -80,6 +82,7 @@ namespace pryTulianSP4Graficos
                 chart.ChartAreas[0].AxisX.Title = "Camiones";
                 chart.ChartAreas[0].AxisY.Title = "Kilómetros recorridos";
                 chart.ChartAreas[0].AxisY.Minimum = 0;
+                chart.ChartAreas[0].AxisY.Maximum = 6000;
                 chart.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.LightGray;
                 chart.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
             }
@@ -90,6 +93,165 @@ namespace pryTulianSP4Graficos
 
 
 
+        }
+        public void Gastosporcamion(Chart chart)
+        {
+            Series ser = new Series("");
+            ser.ChartType = SeriesChartType.Column;
+
+
+
+            try
+            {
+                miconexion = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=..\\..\\BaseDatos\\control_transporte.accdb");
+                miconexion.Open();
+
+
+                string consulta = "SELECT Camión, Litros FROM transporte";
+                comando = new OleDbCommand(consulta, miconexion);
+
+                OleDbDataReader reader = comando.ExecuteReader();
+                Color[] colores =
+                    {
+                Color.Red, Color.Orange, Color.Green, Color.Blue,
+                Color.Purple, Color.Cyan, Color.Magenta, Color.Gold,
+                Color.Brown, Color.DarkSlateGray
+               };
+                int i = 0;
+                while (reader.Read())
+                {
+
+                    string camion = reader["Camión"].ToString();
+                    decimal litros = Convert.ToDecimal(reader["Litros"]);
+
+                    int puntoIndex = ser.Points.AddXY(camion, litros);
+
+
+                    ser.Points[puntoIndex].Color = colores[i % colores.Length];
+                    i++;
+                }
+
+                chart.Series.Add(ser);
+
+
+                chart.ChartAreas[0].AxisX.Interval = 1;
+                chart.ChartAreas[0].AxisX.Title = "Camiones";
+                chart.ChartAreas[0].AxisY.Title = "Litros gastados por camiòn";
+                chart.ChartAreas[0].AxisY.Minimum = 0;
+                chart.ChartAreas[0].AxisY.Maximum = 400;
+                chart.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.LightGray;
+                chart.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+        public void Kilogramosporcamion(Chart chart)
+        {
+            Series ser = new Series("");
+            ser.ChartType = SeriesChartType.Column;
+
+
+
+            try
+            {
+                miconexion = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=..\\..\\BaseDatos\\control_transporte.accdb");
+                miconexion.Open();
+
+
+                string consulta = "SELECT Camión, kg FROM transporte";
+                comando = new OleDbCommand(consulta, miconexion);
+
+                OleDbDataReader reader = comando.ExecuteReader();
+                Color[] colores =
+                    {
+                Color.Red, Color.Orange, Color.Green, Color.Blue,
+                Color.Purple, Color.Cyan, Color.Magenta, Color.Gold,
+                Color.Brown, Color.DarkSlateGray
+               };
+                int i = 0;
+                while (reader.Read())
+                {
+
+                    string camion = reader["Camión"].ToString();
+                    decimal kg = Convert.ToDecimal(reader["kg"]);
+
+                    int puntoIndex = ser.Points.AddXY(camion, kg);
+
+
+                    ser.Points[puntoIndex].Color = colores[i % colores.Length];
+                    i++;
+                }
+
+                chart.Series.Add(ser);
+
+
+                chart.ChartAreas[0].AxisX.Interval = 1;
+                chart.ChartAreas[0].AxisX.Title = "Camiones";
+                chart.ChartAreas[0].AxisY.Title = "Kilogramos del camiòn";
+                chart.ChartAreas[0].AxisY.Minimum = 0;
+                chart.ChartAreas[0].AxisY.Maximum = 80000;
+                chart.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.LightGray;
+                chart.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+        public void Gastosviaticos(Chart chart)
+        {
+            Series ser = new Series("");
+            ser.ChartType = SeriesChartType.Column;
+
+
+
+            try
+            {
+                miconexion = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=..\\..\\BaseDatos\\control_transporte.accdb");
+                miconexion.Open();
+
+
+                string consulta = "SELECT Camión, Precio FROM transporte";
+                comando = new OleDbCommand(consulta, miconexion);
+
+                OleDbDataReader reader = comando.ExecuteReader();
+                Color[] colores =
+                    {
+                Color.Red, Color.Orange, Color.Green, Color.Blue,
+                Color.Purple, Color.Cyan, Color.Magenta, Color.Gold,
+                Color.Brown, Color.DarkSlateGray
+               };
+                int i = 0;
+                while (reader.Read())
+                {
+
+                    string camion = reader["Camión"].ToString();
+                    decimal Precio = Convert.ToDecimal(reader["Precio"]);
+
+                    int puntoIndex = ser.Points.AddXY(camion, Precio);
+
+
+                    ser.Points[puntoIndex].Color = colores[i % colores.Length];
+                    i++;
+                }
+
+                chart.Series.Add(ser);
+
+
+                chart.ChartAreas[0].AxisX.Interval = 1;
+                chart.ChartAreas[0].AxisX.Title = "Camiones";
+                chart.ChartAreas[0].AxisY.Title = "Gastos por camiòn";
+                chart.ChartAreas[0].AxisY.Minimum = 0;
+                chart.ChartAreas[0].AxisY.Maximum = 1400000;
+                chart.ChartAreas[0].AxisY.MajorGrid.LineColor = Color.LightGray;
+                chart.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
 
 

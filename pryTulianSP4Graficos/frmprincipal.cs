@@ -23,10 +23,36 @@ namespace pryTulianSP4Graficos
         {
             ConexionClase conexion = new ConexionClase();
             conexion.ConectarBaseAcces(lblestadoonexion);
-            conexion.CargarGrafico(chartEstadisticas);
+            
 
         }
 
+        private void btncamion_Click(object sender, EventArgs e)
+        {
+            chartEstadisticas.Series.Clear();
+            ConexionClase conexion = new ConexionClase();
+            conexion.Kmrecorridoporcamion(chartEstadisticas);
+        }
 
+        private void btngastos_Click(object sender, EventArgs e)
+        {
+            chartEstadisticas.Series.Clear();
+            ConexionClase conexion = new ConexionClase();
+            conexion.Gastosporcamion(chartEstadisticas);
+        }
+
+        private void btnkilogramos_Click(object sender, EventArgs e)
+        {
+            chartEstadisticas.Series.Clear();
+            ConexionClase conexion = new ConexionClase();
+            conexion.Kilogramosporcamion(chartEstadisticas);
+        }
+
+        private void btnviaticos_Click(object sender, EventArgs e)
+        {
+            chartEstadisticas.Series.Clear();
+            ConexionClase conexion = new ConexionClase();
+            conexion.Gastosviaticos(chartEstadisticas);
+        }
     }
 }
