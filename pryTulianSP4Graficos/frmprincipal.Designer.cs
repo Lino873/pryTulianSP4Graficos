@@ -131,7 +131,8 @@
             this.cbotipografico.Items.AddRange(new object[] {
             "Gráfico de columna",
             "Gráfico de línea",
-            "Gráfico de barra"});
+            "Gráfico de barra",
+            "Gráfico de burbuja"});
             this.cbotipografico.Location = new System.Drawing.Point(0, 59);
             this.cbotipografico.Name = "cbotipografico";
             this.cbotipografico.Size = new System.Drawing.Size(106, 21);

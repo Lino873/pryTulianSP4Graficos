@@ -37,7 +37,7 @@ namespace pryTulianSP4Graficos
                 lblmensaje.BackColor = System.Drawing.Color.DarkRed;
             }
         }
-        public void Kmrecorridoporcamion(Chart chart)
+        public void Kmrecorridoporcamion(Chart chart, Int32 indice)
         {
             
             Series ser = new Series("");
@@ -76,8 +76,9 @@ namespace pryTulianSP4Graficos
                 }
 
                 chart.Series.Add(ser);
+                CambiarGrafico(indice, chart);
 
-                
+
                 chart.ChartAreas[0].AxisX.Interval = 1;
                 chart.ChartAreas[0].AxisX.Title = "Camiones";
                 chart.ChartAreas[0].AxisY.Title = "Kilómetros recorridos";
@@ -94,7 +95,7 @@ namespace pryTulianSP4Graficos
 
 
         }
-        public void Gastosporcamion(Chart chart)
+        public void Gastosporcamion(Chart chart, Int32 indice)
         {
             Series ser = new Series("");
             ser.ChartType = SeriesChartType.Column;
@@ -132,6 +133,7 @@ namespace pryTulianSP4Graficos
                 }
 
                 chart.Series.Add(ser);
+                CambiarGrafico(indice, chart);
 
 
                 chart.ChartAreas[0].AxisX.Interval = 1;
@@ -147,7 +149,7 @@ namespace pryTulianSP4Graficos
                 Console.WriteLine(e.Message);
             }
         }
-        public void Kilogramosporcamion(Chart chart)
+        public void Kilogramosporcamion(Chart chart, Int32 indice)
         {
             Series ser = new Series("");
             ser.ChartType = SeriesChartType.Column;
@@ -185,6 +187,7 @@ namespace pryTulianSP4Graficos
                 }
 
                 chart.Series.Add(ser);
+                CambiarGrafico(indice, chart);
 
 
                 chart.ChartAreas[0].AxisX.Interval = 1;
@@ -200,7 +203,7 @@ namespace pryTulianSP4Graficos
                 Console.WriteLine(e.Message);
             }
         }
-        public void Gastosviaticos(Chart chart)
+        public void Gastosviaticos(Chart chart, Int32 indice)
         {
             Series ser = new Series("");
             ser.ChartType = SeriesChartType.Column;
@@ -238,7 +241,7 @@ namespace pryTulianSP4Graficos
                 }
 
                 chart.Series.Add(ser);
-
+                CambiarGrafico(indice, chart);
 
                 chart.ChartAreas[0].AxisX.Interval = 1;
                 chart.ChartAreas[0].AxisX.Title = "Camiones";
@@ -253,8 +256,27 @@ namespace pryTulianSP4Graficos
                 Console.WriteLine(e.Message);
             }
         }
+        private void CambiarGrafico(Int32 index, Chart chartGrafico)
+        {
+            switch (index)
+            {
+                case 0:
+                    chartGrafico.Series[0].ChartType = SeriesChartType.Column;
+                    break;
+                case 1:
+                    chartGrafico.Series[0].ChartType = SeriesChartType.Line;
+                    break;
+                case 2:
+                    chartGrafico.Series[0].ChartType = SeriesChartType.Bar;
+                    break;
+                case 3:
+                    chartGrafico.Series[0].ChartType = SeriesChartType.Bubble;
+                    break;
+            }
+        }
+
 
 
     }
-   
+
 }

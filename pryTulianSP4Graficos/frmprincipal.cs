@@ -31,28 +31,28 @@ namespace pryTulianSP4Graficos
         {
             chartEstadisticas.Series.Clear();
             ConexionClase conexion = new ConexionClase();
-            conexion.Kmrecorridoporcamion(chartEstadisticas);
+            conexion.Kmrecorridoporcamion(chartEstadisticas, cbotipografico.SelectedIndex);
         }
 
         private void btngastos_Click(object sender, EventArgs e)
         {
             chartEstadisticas.Series.Clear();
             ConexionClase conexion = new ConexionClase();
-            conexion.Gastosporcamion(chartEstadisticas);
+            conexion.Gastosporcamion(chartEstadisticas, cbotipografico.SelectedIndex);
         }
 
         private void btnkilogramos_Click(object sender, EventArgs e)
         {
             chartEstadisticas.Series.Clear();
             ConexionClase conexion = new ConexionClase();
-            conexion.Kilogramosporcamion(chartEstadisticas);
+            conexion.Kilogramosporcamion(chartEstadisticas, cbotipografico.SelectedIndex);
         }
 
         private void btnviaticos_Click(object sender, EventArgs e)
         {
             chartEstadisticas.Series.Clear();
             ConexionClase conexion = new ConexionClase();
-            conexion.Gastosviaticos(chartEstadisticas);
+            conexion.Gastosviaticos(chartEstadisticas, cbotipografico.SelectedIndex);
         }
     }
 }
